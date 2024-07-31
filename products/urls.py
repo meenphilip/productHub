@@ -14,4 +14,5 @@ urlpatterns = [
         views.product_update,
         name="product-update",
     ),
+    path("product_delete/<int:id>/", views.product_delete, name="delete"),
 ]

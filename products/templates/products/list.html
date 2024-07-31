@@ -44,7 +44,7 @@
             >Update</a
           >
         </td>
-        <td><a href="#">Delete</a></td>
+        <td><a href="{% url 'delete' product.id  %}">Delete</a></td>
       </tr>
       {% endfor %}
     </tbody>

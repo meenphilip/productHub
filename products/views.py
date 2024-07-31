@@ -43,3 +43,13 @@ def product_update(request, id):
         form = ProductForm(instance=product)
     context = {"form": form, "product": product}
     return render(request, "products/update.html", context)
+
+
+def product_delete(request, id):
+    product = get_object_or_404(Product, id=id)
+    
+    if request.method == 'POST':
+        product.delete()
+        return redirect('product-list')
+    
+    return render(request, 'products/delete.html', {'product': product})
