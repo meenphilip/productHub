@@ -1,4 +1,8 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} 
+
+{% load static %} 
+
+{% block content %}
 <div class="container">
   <table class="table table-bordered my-5 text-center">
     <thead>
@@ -29,7 +33,7 @@
         <td>{{product.price}}</td>
         <td>{{product.quantity}}</td>
         <td>{{product.producer}}</td>
-        <td><a href="#">View</a></td>
+        <td><a href="{% url 'product-detail' id=product.id slug=product.slug %}">View</a></td>
         <td><a href="#">Update</a></td>
         <td><a href="#">Delete</a></td>
       </tr>
