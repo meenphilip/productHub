@@ -8,4 +8,9 @@ urlpatterns = [
         views.product_detail,
         name="product-detail",
     ),
+    path(
+        "product_update/<int:id>/<slug:slug>/",
+        views.product_update,
+        name="product-update",
+    ),
 ]
