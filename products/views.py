@@ -11,15 +11,28 @@ def product_list(request):
 
 
 # create product detail
-def product_detail(request, id, slug):
-    product = get_object_or_404(Product, id=id, slug=slug)
+def product_detail(request, id):
+    product = get_object_or_404(Product, id=id)
     context = {"product": product}
     return render(request, "products/detail.html", context)
 
 
+# Create product
+def create_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("product-list")
+    else:
+        form = ProductForm()
+    context = {"form": form}
+    return render(request, "products/create.html", context)
+
+
 # update product
-def product_update(request, id, slug):
-    product = get_object_or_404(Product, id=id, slug=slug)
+def product_update(request, id):
+    product = get_object_or_404(Product, id=id)
 
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES, instance=product)

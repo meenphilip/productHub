@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="container">
+  <a href="{% url "create" %}" class="btn btn-primary my-3">Create Product</a>
   <table class="table table-bordered my-5 text-center">
     <thead>
       <tr>
@@ -34,12 +35,12 @@
         <td>{{product.quantity}}</td>
         <td>{{product.producer}}</td>
         <td>
-          <a href="{% url 'product-detail' id=product.id slug=product.slug %}"
+          <a href="{% url 'product-detail' id=product.id  %}"
             >View</a
           >
         </td>
         <td>
-          <a href="{% url 'product-update' id=product.id slug=product.slug %}"
+          <a href="{% url 'product-update' id=product.id  %}"
             >Update</a
           >
         </td>
