@@ -1,0 +1,32 @@
+{% extends "base.html" %} 
+
+{% load static %} 
+
+{% block title %}{{product.title}}{% endblock %} 
+
+{% block content %}
+<div class="container">
+  <div class="my-4">
+    <a href="{% url "product-list" %}" class="btn btn-info">Back to list</a>
+  </div>
+  <div class="card my-5" style="width: 18.5rem">
+    <img
+      src="{{product.image.url}}"
+      class="card-img-top"
+      alt="{{product.title}}"
+    />
+    <div class="card-body">
+      <h5 class="card-title">{{product.title}}</h5>
+      <p class="card-text">{{product.description|truncatewords_html:10}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{product.price}}</li>
+      <li class="list-group-item">{{product.quantity}}</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Update</a>
+      <a href="#" class="card-link">Delete</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
