@@ -1,73 +1,56 @@
-{% extends "base.html" %} 
+{% extends "base.html" %} {% load static %} {% block content %}
 
-{% load static %} 
+<main id="main-site">
+  <section id="add-product">
+    <div class="container my-4 p-4">
+      <a href="{% url 'create' %}" class="btn btn-primary">Add product</a>
+    </div>
+  </section>
 
-{% block content %}
-<div class="container">
-  <!-- Search Form -->
-  <form method="GET" action="{% url 'product-list' %}" class="form-inline my-3">
-    <input
-      class="form-control mr-sm-2"
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
-      name="q"
-      value="{{ query|default_if_none:'' }}"
-    />
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-      Search
-    </button>
-  </form>
-
-  <!-- Create Product Button -->
-  <a href="{% url 'create' %}" class="btn btn-primary my-3">Create Product</a>
-
-  <!-- Product Table -->
-  <table class="table table-bordered table-dark my-5 text-center">
-    <thead>
-      <tr>
-        <th scope="col">Image</th>
-        <th scope="col">Title</th>
-        <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Producer</th>
-        <th scope="col">View</th>
-        <th scope="col">Update</th>
-        <th scope="col">Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for product in products %}
-      <tr>
-        <td>
-          {% if product.image %}
-          <img
-            src="{{ product.image.url }}"
-            alt="{{ product.title }}"
-            style="width: 50px; height: 50px"
-          />
-          {% else %}
-          No Image
-          {% endif %}
-        </td>
-        <td>{{ product.title }}</td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.quantity }}</td>
-        <td>{{ product.producer }}</td>
-        <td>
-          <a href="{{product.get_absolute_url}}">View</a>
-        </td>
-        <td>
-          <a href="{% url 'product-update' id=product.id %}">Update</a>
-        </td>
-        <td>
-          <a href="{% url 'delete' id=product.id %}">Delete</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  <!-- Include the pagination template -->
+  <!-- special price -->
+  <section id="special-price">
+    <div class="container my-5">
+      <h4 class="font-rubik font-size-20">Special Price</h4>
+      <div id="filters" class="button-group text-right font-baloo font-size-16">
+        <button class="btn is-checked" data-filter="*">All Brands</button>
+        <button class="btn" data-filter=".Apple">Apple</button>
+        <button class="btn" data-filter=".Samsung">Samsung</button>
+        <button class="btn" data-filter=".Redmi">Redmi</button>
+      </div>
+      <div class="grid">
+        {% for product in products %}
+        <div class="grid-item {{ product.producer }} border rounded-4">
+          <div class="item py-2" style="width: 200px">
+            <div class="product font-rale">
+              <a href="{{ product.get_absolute_url }}">
+                <img
+                  class="img-fluid"
+                  src="{{ product.image.url }}"
+                  alt="{{ product.title }}"
+                />
+              </a>
+              <div class="text-center">
+                <h6>{{ product.title }}</h6>
+                <div class="rating text-warning font-size-12">
+                  <span><i class="fas fa-star"></i></span>
+                  <span><i class="fas fa-star"></i></span>
+                  <span><i class="fas fa-star"></i></span>
+                  <span><i class="fas fa-star"></i></span>
+                  <span><i class="far fa-star"></i></span>
+                </div>
+                <div class="price py-2">
+                  <span>{{ product.price }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
   {% include "pagination.html" %}
-</div>
+  <!-- !special price -->
+</main>
+
 {% endblock %}

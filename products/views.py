@@ -19,7 +19,7 @@ def product_list(request):
             | Q(producer__icontains=query)
         )
     # Pagination with 2 products per page
-    paginator = Paginator(product_list, 2)
+    paginator = Paginator(product_list, 5)
     page_number = request.GET.get("page")
 
     try:
@@ -63,7 +63,8 @@ def product_update(request, id):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect("product-list")
+            # Redirect to the product detail page
+            return redirect("product-detail", id=product.id)
     else:
         form = ProductForm(instance=product)
     context = {"form": form, "product": product}

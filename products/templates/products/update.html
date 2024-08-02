@@ -1,14 +1,16 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 
-{% load static %}
+{% load static %} 
 
 {% block content %}
 <div class="container">
-  <h2>Update Product</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Update</button>
-  </form>
+  <h2 class="text-center">Update Product</h2>
+  <p class="text-center">Update "{{ product.title }}"</p>
+  <div class="col-8 mx-auto">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+  </div>
 </div>
 {% endblock %}
