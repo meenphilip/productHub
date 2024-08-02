@@ -1,13 +1,38 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from .models import Product
 from .forms import ProductForm
 
 
 # Create your views here.
 def product_list(request):
+    # perform a search
+    query = request.GET.get("q", "")
     # get all products
-    products = Product.objects.all()
-    return render(request, "products/list.html", {"products": products})
+    product_list = Product.objects.all()
+    # search query
+    if query:
+        product_list = product_list.filter(
+            Q(title__icontains=query)
+            | Q(description__icontains=query)
+            | Q(producer__icontains=query)
+        )
+    # Pagination with 2 products per page
+    paginator = Paginator(product_list, 2)
+    page_number = request.GET.get("page")
+
+    try:
+        products = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page_number is not an integer deliver the first page
+        products = paginator.page(1)
+    except EmptyPage:
+        # If page_number is out of range deliver last page of results
+        products = paginator.page(paginator.num_pages)
+
+    context = {"products": products, "query": query}
+    return render(request, "products/list.html", context)
 
 
 # create product detail
@@ -47,9 +72,9 @@ def product_update(request, id):
 
 def product_delete(request, id):
     product = get_object_or_404(Product, id=id)
-    
-    if request.method == 'POST':
+
+    if request.method == "POST":
         product.delete()
-        return redirect('product-list')
-    
-    return render(request, 'products/delete.html', {'product': product})
+        return redirect("product-list")
+
+    return render(request, "products/delete.html", {"product": product})
