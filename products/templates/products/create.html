@@ -2,17 +2,24 @@
 
 {% load static %} 
 
-{% block title %}Create Product{% endblock %}
+{% block title %}Create Product{% endblock %} 
 
 {% block content %}
 <div class="container">
+  <div class="h4">
+    <a href="{% url "product-list" %}" class="text-dark"
+      ><i class="fa fa-arrow-left" aria-hidden="true"></i
+    ></a>
+  </div>
+
   <h2 class="text-center">Create Product</h2>
   <div class="col-8 mx-auto">
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Create</button>
-  </form>
-</div>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-primary btn-block mb-3">
+        Create
+      </button>
+    </form>
+  </div>
 </div>
 {% endblock %}

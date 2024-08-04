@@ -4,12 +4,20 @@
 
 {% block content %}
 <div class="container">
+  <div class="h4">
+    <a href="{% url 'product-detail' product.id %}" class="text-dark"
+      ><i class="fa fa-arrow-left" aria-hidden="true"></i
+    ></a>
+  </div>
+
   <h2 class="text-center">Update Product</h2>
   <p class="text-center">Update "{{ product.title }}"</p>
   <div class="col-8 mx-auto">
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %} {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Update</button>
+      <button type="submit" class="btn btn-primary btn-block mb-3">
+        Update
+      </button>
     </form>
   </div>
 </div>
