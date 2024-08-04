@@ -1,15 +1,17 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} 
 
-<main id="main-site">
+{% load static %} 
+
+{% block content %}
   <section id="add-product">
-    <div class="container my-4 p-4">
-      <a href="{% url 'create' %}" class="btn btn-primary">Add product</a>
+    <div class="container">
+      <a href="{% url 'create' %}" class="btn btn-primary mb-3">Add product</a>
     </div>
   </section>
 
   <!-- special price -->
   <section id="special-price">
-    <div class="container my-5">
+    <div class="container">
       <h4 class="font-rubik font-size-20">Special Price</h4>
       <div id="filters" class="button-group text-right font-baloo font-size-16">
         <button class="btn is-checked" data-filter="*">All Brands</button>
@@ -51,6 +53,4 @@
   </section>
   {% include "_pagination.html" %}
   <!-- !special price -->
-</main>
-
 {% endblock %}

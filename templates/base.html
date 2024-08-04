@@ -14,28 +14,29 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
-    <header id="header" class="mb-5">{% include "navbar.html" %}</header>
-    <div class="d-flex justify-content-center">
-      {% for message in messages %}
-      <div
-        class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show"
-        role="alert"
-      >
-        {{ message }}
-        <button
-          type="button"
-          class="close"
-          data-dismiss="alert"
-          aria-label="Close"
+    <header id="header" class="mb-3">{% include "navbar.html" %}</header>
+    <main id="main-site">
+      <div class="d-flex justify-content-center">
+        {% for message in messages %}
+        <div
+          class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show"
+          role="alert"
         >
-          <span aria-hidden="true">&times;</span>
-        </button>
+          {{ message }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-    <!-- Your content here -->
-    {% block content %} {% endblock %}
-
+      <!-- Your content here -->
+      {% block content %} {% endblock %}
+    </main>
     <!-- JavaScript files -->
     <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
