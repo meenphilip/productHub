@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.contrib import messages
 from .models import Product
 from .forms import ProductForm
 
@@ -48,6 +49,7 @@ def create_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "product created successfully")
             return redirect("product-list")
     else:
         form = ProductForm()
@@ -64,6 +66,7 @@ def product_update(request, id):
         if form.is_valid():
             form.save()
             # Redirect to the product detail page
+            messages.success(request, "product updated successfully")
             return redirect("product-detail", id=product.id)
     else:
         form = ProductForm(instance=product)
@@ -76,6 +79,7 @@ def product_delete(request, id):
 
     if request.method == "POST":
         product.delete()
+        messages.success(request, "product deleted successfully")
         return redirect("product-list")
 
     return render(request, "products/delete.html", {"product": product})
